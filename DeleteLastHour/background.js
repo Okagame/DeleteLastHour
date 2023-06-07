@@ -1,20 +1,23 @@
 chrome.action.onClicked.addListener(async () => {
   try {
-    await chrome.browsingData.remove({
-      since: Date.now() - 3600000, // One hour ago
-    }, {
-      cache: true,
-      cookies: true,
-      downloads: true,
-      formData: true,
-      history: true,
-      indexedDB: true,
-      localStorage: true,
-      pluginData: true,
-      passwords: true,
-      serviceWorkers: true,
-      webSQL: true,
-    });
+    await chrome.browsingData.remove(
+      {
+        since: Date.now() - 3600000, // One hour ago
+      },
+      {
+        cache: true,
+        cookies: true,
+        downloads: true,
+        formData: true,
+        history: true,
+        indexedDB: true,
+        localStorage: true,
+        pluginData: true,
+        passwords: true,
+        serviceWorkers: true,
+        webSQL: true,
+      }
+    );
 
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
       const tab = tabs[0];
@@ -60,7 +63,7 @@ async function updateTabFavicon(tabId, faviconUrl) {
   await chrome.scripting.executeScript({
     target: { tabId: tabId },
     function: (url) => {
-      const link = document.querySelector("link[rel*='icon']");
+      const link = document.querySelector("link[rel~='icon']");
       if (link) {
         link.href = url;
       } else {
