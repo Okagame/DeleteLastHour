@@ -63,9 +63,10 @@ async function updateTabFavicon(tabId, faviconUrl) {
   await chrome.scripting.executeScript({
     target: { tabId: tabId },
     function: (url) => {
-      const link = document.querySelector("link[rel~='icon']");
-      if (link) {
-        link.href = url;
+      const links = Array.from(document.querySelectorAll("link[rel~='icon']"));
+      const existingLink = links.find((link) => !link.href.startsWith("chrome://"));
+      if (existingLink) {
+        existingLink.href = url;
       } else {
         const newLink = document.createElement("link");
         newLink.rel = "icon";
