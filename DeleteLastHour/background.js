@@ -60,7 +60,7 @@ async function displayFeedback(tabId, message) {
 }
 
 async function updateTabFavicon(tabId, faviconUrl) {
-  await chrome.tabs.get(tabId, (tab) => {
+  await chrome.tabs.update(tabId, { favIconUrl: faviconUrl });
     const updatedTab = {
       ...tab,
       favIconUrl: faviconUrl,
