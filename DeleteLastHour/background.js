@@ -77,3 +77,4 @@ async function updateTabFavicon(tabId, faviconUrl) {
     args: [faviconUrl],
   });
 }
+
