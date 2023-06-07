@@ -60,21 +60,16 @@ async function displayFeedback(tabId, message) {
 }
 
 async function updateTabFavicon(tabId, faviconUrl) {
-  await chrome.scripting.executeScript({
-    target: { tabId: tabId },
-    function: (url) => {
-      const links = Array.from(document.querySelectorAll("link[rel~='icon']"));
-      const existingLink = links.find((link) => !link.href.startsWith("chrome://"));
-      if (existingLink) {
-        existingLink.href = url;
-      } else {
-        const newLink = document.createElement("link");
-        newLink.rel = "icon";
-        newLink.href = url;
-        document.head.appendChild(newLink);
+  await chrome.tabs.get(tabId, (tab) => {
+    const updatedTab = {
+      ...tab,
+      favIconUrl: faviconUrl,
+    };
+    chrome.tabs.update(updatedTab, () => {
+      if (chrome.runtime.lastError) {
+        console.error("Error updating tab favicon:", chrome.runtime.lastError);
       }
-    },
-    args: [faviconUrl],
+    });
   });
 }
 
