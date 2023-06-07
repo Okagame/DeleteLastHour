@@ -1,7 +1,3 @@
-chrome.runtime.onInstalled.addListener(() => {
-  // Service worker registration code here
-});
-
 chrome.action.onClicked.addListener(async () => {
   try {
     await chrome.browsingData.remove({
@@ -23,7 +19,11 @@ chrome.action.onClicked.addListener(async () => {
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
       const tab = tabs[0];
       if (tab) {
+        const { url, favIconUrl } = tab;
         await displayFeedback(tab.id, "Browsing data removed for the last hour");
+        if (favIconUrl && !favIconUrl.startsWith("chrome://")) {
+          await updateTabFavicon(tab.id, favIconUrl);
+        }
       } else {
         console.error("Unable to find active tab");
       }
@@ -53,5 +53,23 @@ async function displayFeedback(tabId, message) {
       }, 3000);
     },
     args: [message],
+  });
+}
+
+async function updateTabFavicon(tabId, faviconUrl) {
+  await chrome.scripting.executeScript({
+    target: { tabId: tabId },
+    function: (url) => {
+      const link = document.querySelector("link[rel*='icon']");
+      if (link) {
+        link.href = url;
+      } else {
+        const newLink = document.createElement("link");
+        newLink.rel = "icon";
+        newLink.href = url;
+        document.head.appendChild(newLink);
+      }
+    },
+    args: [faviconUrl],
   });
 }
