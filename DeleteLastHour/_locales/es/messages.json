@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "Borrar última hora",
+    "description": "Eliminar datos de navegación de la última hora con un solo clic"
+  },
+  "extensionDescription": {
+    "message": "Eliminar datos de navegación de la última hora con un solo clic",
+    "description": "Borrar última hora - Descripción de la extensión"
+  }
+}

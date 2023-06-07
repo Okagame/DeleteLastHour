@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "Supprimer Dernière Heure",
+    "description": "Supprimer les données de navigation de la dernière heure en un clic"
+  },
+  "extensionDescription": {
+    "message": "Supprimer les données de navigation de la dernière heure en un clic",
+    "description": "Supprimer Dernière Heure - Description de l'extension"
+  }
+}

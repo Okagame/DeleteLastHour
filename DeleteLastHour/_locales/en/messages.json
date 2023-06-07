@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "Delete Last Hour",
+    "description": "Delete browsing data for the last hour with one click"
+  },
+  "extensionDescription": {
+    "message": "Delete browsing data for the last hour with one click",
+    "description": "Delete Last Hour - Extension description"
+  }
+}
