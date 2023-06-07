@@ -1,23 +1,20 @@
 chrome.action.onClicked.addListener(async () => {
   try {
-    await chrome.browsingData.remove(
-      {
-        since: Date.now() - 3600000, // One hour ago
-      },
-      {
-        cache: true,
-        cookies: true,
-        downloads: true,
-        formData: true,
-        history: true,
-        indexedDB: true,
-        localStorage: true,
-        pluginData: true,
-        passwords: true,
-        serviceWorkers: true,
-        webSQL: true,
-      }
-    );
+    await chrome.browsingData.remove({
+      since: Date.now() - 3600000, // One hour ago
+    }, {
+      cache: true,
+      cookies: true,
+      downloads: true,
+      formData: true,
+      history: true,
+      indexedDB: true,
+      localStorage: true,
+      pluginData: true,
+      passwords: true,
+      serviceWorkers: true,
+      webSQL: true,
+    });
 
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
       const tab = tabs[0];
@@ -65,11 +62,10 @@ async function updateTabFavicon(tabId, faviconUrl) {
       ...tab,
       favIconUrl: faviconUrl,
     };
-    chrome.tabs.update(updatedTab, () => {
+    chrome.tabs.update(tabId, updatedTab, () => {
       if (chrome.runtime.lastError) {
         console.error("Error updating tab favicon:", chrome.runtime.lastError);
       }
     });
   });
 }
-
