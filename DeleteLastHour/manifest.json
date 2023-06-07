@@ -3,7 +3,9 @@
   "version": "1.0",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "permissions": ["browsingData"],
+  "permissions":
+  ["browsingData",
+  "scripting"],
   "action": {
     "default_icon": "icon.png"
   },
